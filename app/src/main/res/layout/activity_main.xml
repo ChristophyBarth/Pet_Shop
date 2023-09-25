@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <EditText
+            android:id="@+id/new_category_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="input category"
+            android:layout_toStartOf="@id/add"
+            android:padding="15dp"
+            android:maxLines="1"
+            android:maxLength="24"
+            android:background="@android:color/transparent"/>
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:layout_alignBottom="@id/new_category_ed"
+            android:layout_alignTop="@id/new_category_ed"
+            android:layout_alignParentEnd="true"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categories_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_below="@id/new_category_ed"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+</layout>
