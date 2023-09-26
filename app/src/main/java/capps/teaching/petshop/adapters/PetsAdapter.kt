@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import capps.teaching.petshop.R
 import capps.teaching.petshop.databinding.CategoryItemBinding
 
-class PetsAdapter(private val petList: ArrayList<String>) : RecyclerView.Adapter<PetsAdapter.PetsViewHolder>() {
+class PetsAdapter(private val petList: ArrayList<String>) :
+    RecyclerView.Adapter<PetsAdapter.PetsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<CategoryItemBinding>(layoutInflater, R.layout.category_item, parent, false)
+        val binding = DataBindingUtil.inflate<CategoryItemBinding>(
+            layoutInflater, R.layout.category_item, parent, false
+        )
         return PetsViewHolder(binding)
     }
 
@@ -24,8 +27,9 @@ class PetsAdapter(private val petList: ArrayList<String>) : RecyclerView.Adapter
         holder.bind(petList[position])
     }
 
-    inner class PetsViewHolder(private val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(petName: String){
+    inner class PetsViewHolder(private val binding: CategoryItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(petName: String) {
             binding.category.text = petName
             binding.delete.visibility = View.INVISIBLE
         }
