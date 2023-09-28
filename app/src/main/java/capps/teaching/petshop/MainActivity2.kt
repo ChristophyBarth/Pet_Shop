@@ -38,7 +38,7 @@ class MainActivity2 : AppCompatActivity() {
             else -> arrayListOf()
         }
 
-        petsAdapter = PetsAdapter(pets)
+        petsAdapter = PetsAdapter(pets, this)
         binding.petsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.petsRecyclerView.adapter = petsAdapter
     }
