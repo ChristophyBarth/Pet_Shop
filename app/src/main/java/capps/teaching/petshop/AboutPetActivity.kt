@@ -3,6 +3,7 @@ package capps.teaching.petshop
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import capps.teaching.petshop.databinding.ActivityAboutPetBinding
 import com.bumptech.glide.Glide
