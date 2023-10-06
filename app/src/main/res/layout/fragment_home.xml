@@ -1,80 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HomeFragment">
+        tools:context=".fragments.HomeFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/light_gold"
+            app:contentInsetStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Welcome"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <ImageView
-                android:id="@+id/settings"
+                android:id="@+id/more"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="end"
-                android:background="?attr/selectableItemBackground"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="15dp"
-                android:src="@drawable/ic_settings" />
+                android:src="@drawable/ic_more" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/settings"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:src="@drawable/pluto"
+                app:civ_border_color="@color/black"
+                app:civ_border_width="1dp" />
 
         </androidx.appcompat.widget.Toolbar>
 
-        <EditText
-            android:id="@+id/new_category_ed"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tool_bar"
-            android:layout_toStartOf="@id/add"
-            android:background="@android:color/transparent"
-            android:hint="input category"
-            android:inputType="text"
-            android:maxLength="24"
-            android:maxLines="1"
-            android:padding="15dp"
-            app:layout_constraintEnd_toStartOf="@+id/add"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
-
-        <Button
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_alignTop="@id/new_category_ed"
-            android:layout_alignBottom="@id/new_category_ed"
-            android:layout_alignParentEnd="true"
-            android:text="Add"
-            app:layout_constraintBottom_toBottomOf="@+id/new_category_ed"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categories_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_below="@id/new_category_ed"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_category_ed" />
+            app:layout_constraintTop_toBottomOf="@id/tool_bar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/search_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Search For A Pet"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/new_category_ed"
+                    app:layout_constraintStart_toStartOf="@+id/new_category_ed"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/new_category_ed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/search_view_background"
+                    android:hint="input category"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/search_text" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/categories_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_below="@id/new_category_ed"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/new_category_ed" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/pets_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_below="@id/new_category_ed"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categories_recycler_view" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
