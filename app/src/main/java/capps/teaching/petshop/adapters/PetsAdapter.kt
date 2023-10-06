@@ -2,23 +2,24 @@ package capps.teaching.petshop.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import capps.teaching.petshop.AboutPetActivity
 import capps.teaching.petshop.R
-import capps.teaching.petshop.databinding.CategoryItemBinding
+import capps.teaching.petshop.databinding.PetItemBinding
+import capps.teaching.petshop.model.Pet
+import com.bumptech.glide.Glide
 
-class PetsAdapter(private val petList: ArrayList<String>, private val context: Context) :
+class PetsAdapter(private val petList: ArrayList<Pet>, private val context: Context) :
     RecyclerView.Adapter<PetsAdapter.PetsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<CategoryItemBinding>(
-            layoutInflater, R.layout.category_item, parent, false
+        val binding = DataBindingUtil.inflate<PetItemBinding>(
+            layoutInflater, R.layout.pet_item, parent, false
         )
         return PetsViewHolder(binding)
     }
@@ -31,19 +32,31 @@ class PetsAdapter(private val petList: ArrayList<String>, private val context: C
         holder.bind(petList[position])
     }
 
-    inner class PetsViewHolder(private val binding: CategoryItemBinding) :
+    inner class PetsViewHolder(private val binding: PetItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(petName: String) {
-            binding.category.text = petName
-            binding.delete.visibility = View.INVISIBLE
+        fun bind(pet: Pet) {
+            binding.apply {
+                name.text = pet.name
+                bio.text = pet.bio
+                rating.rating = pet.rating!!.toFloat()
+                price.text = "$${pet.price}"
+
+                if (pet.themeColor != null){
+                    background.setBackgroundColor(Color.parseColor(pet.themeColor))
+                }
+
+
+                Glide.with(context).load(pet.photoUrl).into(photo)
+            }
+
 
             binding.root.setOnClickListener {
-                val intent = Intent(context, AboutPetActivity::class.java)
+                /*val intent = Intent(context, AboutPetActivity::class.java)
                 val bundle = Bundle()
-                bundle.putString("petName", petName)
+                bundle.putString("petName", pet)
                 bundle.putStringArrayList("others", petList)
                 intent.putExtras(bundle)
-                context.startActivity(intent)
+                context.startActivity(intent)*/
             }
         }
     }
