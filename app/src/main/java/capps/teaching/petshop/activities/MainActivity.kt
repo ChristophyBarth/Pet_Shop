@@ -3,7 +3,6 @@ package capps.teaching.petshop.activities
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import capps.teaching.petshop.R
 import capps.teaching.petshop.databinding.ActivityMainBinding
@@ -15,7 +14,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         changeFragment(HomeFragment())
 
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeFragment(id : Fragment){
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, id)
+        fragmentTransaction.replace(R.id.fragmentContainer, id)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }

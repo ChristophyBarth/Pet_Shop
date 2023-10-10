@@ -1,10 +1,11 @@
 package capps.teaching.petshop.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import capps.teaching.petshop.OurObject
@@ -14,6 +15,7 @@ import capps.teaching.petshop.adapters.PetsAdapter
 import capps.teaching.petshop.data.BackendReplica
 import capps.teaching.petshop.databinding.FragmentHomeBinding
 import capps.teaching.petshop.model.Pet
+import java.util.Locale
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -30,7 +32,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -67,6 +69,35 @@ class HomeFragment : Fragment() {
             petsAdapter = PetsAdapter(pets, requireContext())
             binding.petsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.petsRecyclerView.adapter = petsAdapter
+
+            searchCategory.isSubmitButtonEnabled = true
+            searchCategory.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    val thePet = pets.firstOrNull{
+                        it.name?.lowercase(Locale.getDefault()) == query?.lowercase(Locale.getDefault())
+                    }
+
+                    /*val  newList = pets.filter {
+                        it.name == query
+                    }*/
+
+                    pets.clear()
+                    petsAdapter.notifyItemRangeRemoved(0, pets.size)
+
+                    Log.d("TEsting", pets.size.toString())
+
+                    //\uf8ff
+                    /*pets.add(thePet!!)
+                    categoryAdapter.notifyItemInserted(pets.size - 1)*/
+
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return true
+                }
+
+            })
         }
     }
 

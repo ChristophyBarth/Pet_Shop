@@ -113,4 +113,41 @@ class BackendReplica {
 
         return catList
     }
+    fun snakes() : ArrayList<Pet>{
+       // arrayListOf("Whiskers", "Mittens", "Luna")
+
+        val catList = arrayListOf<Pet>()
+
+        catList.apply {
+            add(
+                Pet(
+                    "Whiskers",
+                    "",
+                    4.2,
+                    75.0,
+                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
+                )
+            )
+            add(
+                Pet(
+                    "Max",
+                    "",
+                    3.8,
+                    56.0,
+                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
+                )
+            )
+            add(
+                Pet(
+                    "Jack",
+                    "",
+                    4.6,
+                    98.0,
+                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
+                )
+            )
+        }
+
+        return catList
+    }
 }
