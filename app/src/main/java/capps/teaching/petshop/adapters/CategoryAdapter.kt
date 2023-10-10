@@ -2,7 +2,6 @@ package capps.teaching.petshop.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import capps.teaching.petshop.OurObject
 import capps.teaching.petshop.R
@@ -16,9 +15,7 @@ class CategoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<CategoryItemBinding>(
-            layoutInflater, R.layout.category_item, parent, false
-        )
+        val binding = CategoryItemBinding.inflate(layoutInflater, parent,false)
         return CategoryViewHolder(binding)
     }
 

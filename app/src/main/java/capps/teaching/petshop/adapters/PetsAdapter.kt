@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import capps.teaching.petshop.R
 import capps.teaching.petshop.databinding.PetItemBinding
@@ -18,8 +17,8 @@ class PetsAdapter(private val petList: ArrayList<Pet>, private val context: Cont
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<PetItemBinding>(
-            layoutInflater, R.layout.pet_item, parent, false
+        val binding = PetItemBinding.inflate(
+            layoutInflater, parent, false
         )
         return PetsViewHolder(binding)
     }

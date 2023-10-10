@@ -35,7 +35,6 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
-        dataBinding = true
         viewBinding = true
     }
 }
