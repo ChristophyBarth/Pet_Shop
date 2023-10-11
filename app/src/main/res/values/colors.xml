@@ -6,4 +6,10 @@
 
     <color name="light_gold">#D6884C</color>
     <color name="ash_white">#F6F6F6</color>
+
+    <color name="filled_star_light">#FFFFD700</color>
+    <color name="unfilled_star_light">#FFCCCCCC</color>
+
+    <color name="filled_star_dark">#FFFFFFFF</color>
+    <color name="unfilled_star_dark">#FFAAAAAA</color>
 </resources>

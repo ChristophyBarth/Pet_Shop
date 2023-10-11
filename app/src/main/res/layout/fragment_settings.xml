@@ -24,4 +24,16 @@
         app:layout_constraintStart_toStartOf="@+id/dark_mode_textView"
         app:layout_constraintTop_toBottomOf="@+id/dark_mode_textView" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_view"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/black"
+        android:src="@drawable/pluto"
+        app:layout_constraintTop_toBottomOf="@+id/dark_mode_switch" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

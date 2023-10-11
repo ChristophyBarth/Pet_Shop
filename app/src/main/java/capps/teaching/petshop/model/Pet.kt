@@ -8,6 +8,10 @@ package capps.teaching.petshop.model
      var themeColor: String? = null
 
      constructor()
+
+     /**
+      * If you do not have the themeColor
+      */
      constructor(name: String?, bio: String?, rating: Double?, price: Double?, photoUrl: String?) {
          this.name = name
          this.bio = bio
