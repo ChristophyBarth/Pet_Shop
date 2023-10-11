@@ -1,12 +1,14 @@
 package capps.teaching.petshop.adapters
 
 import android.content.Context
-import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import capps.teaching.petshop.OurObject.imgurJPGLink
+import capps.teaching.petshop.OurObject.isColorDark
 import capps.teaching.petshop.R
 import capps.teaching.petshop.databinding.PetItemBinding
 import capps.teaching.petshop.model.Pet
@@ -40,12 +42,23 @@ class PetsAdapter(private val petList: ArrayList<Pet>, private val context: Cont
                 rating.rating = pet.rating!!.toFloat()
                 price.text = "$${pet.price}"
 
+                rating.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.filled_star_light))
+
                 if (pet.themeColor != null){
                     background.setBackgroundColor(Color.parseColor(pet.themeColor))
+
+                    if (isColorDark(pet.themeColor!!)){
+                        name.setTextColor(Color.WHITE)
+                        bio.setTextColor(Color.WHITE)
+                        price.setTextColor(Color.WHITE)
+                    }else{
+                        name.setTextColor(Color.BLACK)
+                        bio.setTextColor(Color.BLACK)
+                        price.setTextColor(Color.BLACK)
+                    }
                 }
 
-
-                Glide.with(context).load(pet.photoUrl).into(photo)
+                Glide.with(context).load(imgurJPGLink(pet.photoUrl!!)).into(photo)
             }
 
 

@@ -1,5 +1,7 @@
 package capps.teaching.petshop.data
 
+import capps.teaching.petshop.OurObject
+import capps.teaching.petshop.OurObject.imgurJPGLink
 import capps.teaching.petshop.model.Pet
 
 class BackendReplica {
@@ -19,56 +21,70 @@ class BackendReplica {
         dogList.apply {
             add(
                 Pet(
-                    "Pluto",
-                    "Meet Pluto, who loves long walks in the park.",
-                    3.7,
-                    52.0,
-                    "https://i.imgur.com/bbdDSsm.jpg","#E1CC4F"
-                )
-            )
-            add(
-                Pet(
-                    "Max",
-                    "",
-                    1.5,
-                    20.0,
-                    "https://unsplash.com/photos/m-Doa-GTrUw"
-                )
-            )
-            add(
-                Pet(
-                    "Jack",
-                    "",
-                    4.0,
-                    65.0,
-                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
-                )
-            )
-            add(
-                Pet(
-                    "Boogie",
-                    "",
-                    3.3,
-                    34.99,
-                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
+                    "Densy",
+                    "Introducing Densy, a cuddle connoisseur.",
+                    4.8,
+                    75.99,
+                    "https://imgur.com/brW8gqd",
+                    "#D5A672"
                 )
             )
             add(
                 Pet(
                     "Billy",
-                    "",
+                    "Meet Billy, a squirrel-chasing expert.",
                     3.7,
                     52.0,
-                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
+                    "https://imgur.com/5b36jKP",
+                    "#475874"
                 )
             )
             add(
                 Pet(
-                    "Densy",
-                    "",
-                    4.8,
-                    75.99,
-                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
+                    "Boogie",
+                    "Meet Boogie, a fetch and nap enthusiast.",
+                    3.3,
+                    34.99,
+                    "https://imgur.com/dYVuzgs",
+                    "#DD8AC2"
+                )
+            )
+            add(
+                Pet(
+                    "Pluto",
+                    "This is Pluto, your hiking buddy.",
+                    3.7,
+                    52.0,
+                    "https://imgur.com/lfwK9Uh","#162018"
+                )
+            )
+            add(
+                Pet(
+                    "Max",
+                    "Say hi to Max, a fetching enthusiast!",
+                    1.5,
+                    20.0,
+                    "https://imgur.com/iEHLMul"
+                )
+            )
+            add(
+                Pet(
+                    "Jack",
+                    "Meet Jack, who loves long walks in the park.",
+                    4.0,
+                    65.0,
+                    "https://imgur.com/u8D7WIt",
+                    "#000000"
+                )
+            )
+            add(
+                Pet(
+                    "Bounce",
+                    "It's Bounce, the perpetual motion machine who loves to leap and play!",
+                    2.3,
+                    24.99,
+                    "https://imgur.com/2rmedNs",
+                    "#D68819"
                 )
             )
         }
@@ -84,29 +100,30 @@ class BackendReplica {
         catList.apply {
             add(
                 Pet(
-                    "Whiskers",
-                    "",
+                    "Mittens",
+                    "Greet Mittens, the royal ruler of your heart.",
                     4.2,
                     75.0,
-                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
+                    "https://imgur.com/ROIxYEF"
                 )
             )
             add(
                 Pet(
-                    "Max",
-                    "",
+                    "Whiskers",
+                    "Introducing Whiskers, the purr-fect nap companion.",
                     3.8,
                     56.0,
-                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
+                    "https://imgur.com/bt05vbM"
                 )
             )
             add(
                 Pet(
                     "Jack",
-                    "",
+                    "Say hi to Jack, the elegant lap cat.",
                     4.6,
                     98.0,
-                    "https://www.pexels.com/photo/brown-pomeranian-puppy-on-grey-concrete-floor-3687770/"
+                    "https://imgur.com/YS47PLL",
+                    "#B86547"
                 )
             )
         }
@@ -116,9 +133,9 @@ class BackendReplica {
     fun snakes() : ArrayList<Pet>{
        // arrayListOf("Whiskers", "Mittens", "Luna")
 
-        val catList = arrayListOf<Pet>()
+        val snakeList = arrayListOf<Pet>()
 
-        catList.apply {
+        snakeList.apply {
             add(
                 Pet(
                     "Whiskers",
@@ -148,6 +165,6 @@ class BackendReplica {
             )
         }
 
-        return catList
+        return snakeList
     }
 }

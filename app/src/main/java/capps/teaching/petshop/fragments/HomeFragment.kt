@@ -1,7 +1,6 @@
 package capps.teaching.petshop.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +14,12 @@ import capps.teaching.petshop.adapters.PetsAdapter
 import capps.teaching.petshop.data.BackendReplica
 import capps.teaching.petshop.databinding.FragmentHomeBinding
 import capps.teaching.petshop.model.Pet
-import java.util.Locale
+import kotlin.math.max
 
 class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
 
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var categoryNames: ArrayList<String>
@@ -32,7 +33,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
 
             backendReplica = BackendReplica()
 
-            categoryAdapter = CategoryAdapter(categoryNames,
+            categoryAdapter = CategoryAdapter(requireContext(), categoryNames,
                 categoryIcons,
                 object : OurObject.OurItemClickListener {
                     override fun ourItemClick(position: Int) {
@@ -73,23 +74,9 @@ class HomeFragment : Fragment() {
             searchCategory.isSubmitButtonEnabled = true
             searchCategory.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    val thePet = pets.firstOrNull{
-                        it.name?.lowercase(Locale.getDefault()) == query?.lowercase(Locale.getDefault())
+                    if (!query.isNullOrBlank()){
+                        searchForPets(query)
                     }
-
-                    /*val  newList = pets.filter {
-                        it.name == query
-                    }*/
-
-                    pets.clear()
-                    petsAdapter.notifyItemRangeRemoved(0, pets.size)
-
-                    Log.d("TEsting", pets.size.toString())
-
-                    //\uf8ff
-                    /*pets.add(thePet!!)
-                    categoryAdapter.notifyItemInserted(pets.size - 1)*/
-
                     return true
                 }
 
@@ -99,6 +86,17 @@ class HomeFragment : Fragment() {
 
             })
         }
+    }
+
+    private fun searchForPets(query: String) {
+        val filteredList = backendReplica.dogs().filter{pet ->
+            pet.name!!.startsWith(query, true)
+        }
+
+        val previousListSize = pets.size
+        pets.clear()
+        pets.addAll(filteredList)
+        petsAdapter.notifyItemRangeChanged(0, max(previousListSize, filteredList.size))
     }
 
     private fun showPets(category: String) {
@@ -152,5 +150,11 @@ class HomeFragment : Fragment() {
         }
 
         petsAdapter.notifyDataSetChanged()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
     }
 }

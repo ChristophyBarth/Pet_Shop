@@ -3,6 +3,7 @@
     <style name="Base.Theme.PetShop" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="fontFamily">@font/k2d</item>
     </style>
 
     <style name="Theme.PetShop" parent="Base.Theme.PetShop" />
