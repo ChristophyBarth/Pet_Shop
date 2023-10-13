@@ -3,6 +3,7 @@ package capps.teaching.petshop.adapters
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,6 +12,7 @@ import capps.teaching.petshop.OurObject.imgurJPGLink
 import capps.teaching.petshop.OurObject.isColorDark
 import capps.teaching.petshop.R
 import capps.teaching.petshop.databinding.PetItemBinding
+import capps.teaching.petshop.fragments.AboutPetFragment
 import capps.teaching.petshop.model.Pet
 import com.bumptech.glide.Glide
 
@@ -42,16 +44,21 @@ class PetsAdapter(private val petList: ArrayList<Pet>, private val context: Cont
                 rating.rating = pet.rating!!.toFloat()
                 price.text = "$${pet.price}"
 
-                rating.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.filled_star_light))
+                rating.progressTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.filled_star_light
+                    )
+                )
 
-                if (pet.themeColor != null){
+                if (pet.themeColor != null) {
                     background.setBackgroundColor(Color.parseColor(pet.themeColor))
 
-                    if (isColorDark(pet.themeColor!!)){
+                    if (isColorDark(pet.themeColor!!)) {
                         name.setTextColor(Color.WHITE)
                         bio.setTextColor(Color.WHITE)
                         price.setTextColor(Color.WHITE)
-                    }else{
+                    } else {
                         name.setTextColor(Color.BLACK)
                         bio.setTextColor(Color.BLACK)
                         price.setTextColor(Color.BLACK)
@@ -63,12 +70,14 @@ class PetsAdapter(private val petList: ArrayList<Pet>, private val context: Cont
 
 
             binding.root.setOnClickListener {
-                /*val intent = Intent(context, AboutPetActivity::class.java)
                 val bundle = Bundle()
-                bundle.putString("petName", pet)
-                bundle.putStringArrayList("others", petList)
-                intent.putExtras(bundle)
-                context.startActivity(intent)*/
+                bundle.putString("petName", pet.name)
+                bundle.putString("themeColor", pet.themeColor)
+                bundle.putString("bio", pet.bio)
+                bundle.putFloat("price", pet.price!!.toFloat())
+                bundle.putFloat("rating", pet.rating!!.toFloat())
+                AboutPetFragment().arguments = bundle
+
             }
         }
     }

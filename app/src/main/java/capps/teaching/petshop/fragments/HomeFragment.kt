@@ -39,6 +39,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val pet = Pet()
+        val ownerName = pet.owner!!.name
 
         binding.apply {
             //"Squirrels", "Lizards", "Rabbits"
@@ -72,9 +74,9 @@ class HomeFragment : Fragment() {
             binding.petsRecyclerView.adapter = petsAdapter
 
             searchCategory.isSubmitButtonEnabled = true
-            searchCategory.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            searchCategory.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    if (!query.isNullOrBlank()){
+                    if (!query.isNullOrBlank()) {
                         searchForPets(query)
                     }
                     return true
@@ -89,7 +91,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun searchForPets(query: String) {
-        val filteredList = backendReplica.dogs().filter{pet ->
+        val filteredList = backendReplica.dogs().filter { pet ->
             pet.name!!.startsWith(query, true)
         }
 
@@ -137,7 +139,7 @@ class HomeFragment : Fragment() {
                     arrayListOf(
                         "Floppy",
                         "Thumper",
-                        "Coottontail",
+                        "Cottontail",
                         "Binky",
                         "Snowball",
                         "Hopscotch",
