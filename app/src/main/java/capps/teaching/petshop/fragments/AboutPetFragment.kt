@@ -1,44 +1,51 @@
 package capps.teaching.petshop.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import capps.teaching.petshop.adapters.InfoAdapter
 import capps.teaching.petshop.databinding.FragmentAboutPetBinding
-import com.bumptech.glide.Glide
+import capps.teaching.petshop.model.Pet
 
 class AboutPetFragment : Fragment() {
-    lateinit var binding: FragmentAboutPetBinding
-    private lateinit var petName: String
-    private lateinit var otherPets: ArrayList<String>
+    private var _binding: FragmentAboutPetBinding? = null
+    private val binding get() = _binding!!
 
-    private val funnyGif =
-        "https://gifdb.com/images/high/funny-baby-falling-in-the-pool-adcl8uxuk79qk7bb.webp"
-    private val petImageLink =
-        "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8xNV9waG90b19vZl9hX2RvZ19ydW5uaW5nX3dpdGhfb3duZXJfYXRfcGFya19lcF9mM2I3MDQyZC0zNWJlLTRlMTQtOGZhNy1kY2Q2OWQ1YzQzZjlfMi5qcGc.jpg"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAboutPetBinding.inflate(inflater, container, false)
-        return binding.root
+        _binding = FragmentAboutPetBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+
+        val InfoList = ArrayList<Pet>()
+        val adapter = InfoAdapter(InfoList, requireContext())
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val extras = arguments
-        petName = extras?.getString("petName").toString()
+        val petName = extras?.getString("petName").toString()
+        val themeColor = extras?.getString("themeColor")
+        val bio = extras?.getString("bio")
+        val price = extras?.getFloat("price")
+        val rating = extras?.getFloat("rating")
+binding.apply {
 
-        otherPets = extras?.getStringArrayList("others")!!
-        otherPets.remove(petName)
+}
 
-        Glide.with(this).load(funnyGif).into(binding.petImage)
+    }
 
-        for (i in otherPets) {
-            Log.d("others", i)
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
