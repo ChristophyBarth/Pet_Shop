@@ -11,42 +11,12 @@
         android:id="@+id/pet_info_card"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:background="@drawable/bottom_pet_info_background"
+        android:background="@drawable/bottom_pet_owner_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/pet_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/app_name" />
 
-        <TextView
-            android:id="@+id/bio_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/pet_name"
-            app:layout_constraintTop_toBottomOf="@id/pet_name"
-            tools:text="@string/hello_blank_fragment" />
-
-        <RatingBar
-            android:id="@+id/rating_bar"
-            style="?android:ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:progressTint="@color/black"
-            app:layout_constraintStart_toStartOf="@id/bio_txt"
-            app:layout_constraintTop_toBottomOf="@id/bio_txt"
-            tools:rating="2.5" />
 
 
         <GridLayout
