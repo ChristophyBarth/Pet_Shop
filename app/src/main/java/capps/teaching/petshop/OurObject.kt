@@ -9,15 +9,17 @@ object OurObject {
         fun ourItemClick(position: Int)
     }
 
-    fun imgurJPGLink(imgurDefaultLInk: String): String {
-        /*        val imgur = "https://imgur.com/iEHLMul"
-                https://i.imgur.com/iEHLMul.jpg*/
+    fun imgurJPGLink(imgurDefaultLInk: String?): String? {
 
-        val stringBuilder = StringBuilder(imgurDefaultLInk)
-        stringBuilder.insert(8, "i.")
-        stringBuilder.append(".jpg")
+        return if (imgurDefaultLInk != null) {
+            val stringBuilder = StringBuilder(imgurDefaultLInk)
+            stringBuilder.insert(8, "i.")
+            stringBuilder.append(".jpg")
 
-        return stringBuilder.toString()
+            stringBuilder.toString()
+        } else{
+            null
+        }
     }
 
     fun isColorDark(hexColor: String): Boolean {
@@ -38,4 +40,20 @@ object OurObject {
         // Determine if the color is light or dark based on the brightness
         return brightness < 128
     }
+
+    /*fun splitSentence(input: String?): Pair<String, String>? {
+        return if (input != null) {
+            val sentenceEnd = "[.!?\\,]| {2,}"
+            val sentenceRegex = "(.*?)(?=$sentenceEnd)".toRegex()
+
+            val matchResult = sentenceRegex.find(input)
+            val firstSentence = matchResult?.value ?: input
+
+            val remainingText = matchResult?.let { input.substring(it.range.last + 1).trim() } ?: ""
+
+            Pair(firstSentence, remainingText)
+        } else{
+            null
+        }
+    }*/
 }

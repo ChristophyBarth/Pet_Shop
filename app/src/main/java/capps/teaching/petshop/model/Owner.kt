@@ -1,3 +1,3 @@
 package capps.teaching.petshop.model
 
-data class Owner(val profilePic: String, val name: String, val address: String)
+data class Owner(var profilePic: String, var name: String, var title: String, var address: String)

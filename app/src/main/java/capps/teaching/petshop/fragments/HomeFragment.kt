@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pet = Pet()
-        val ownerName = pet.owner!!.name
+        val ownerName = pet.owner?.name
 
         binding.apply {
             //"Squirrels", "Lizards", "Rabbits"
@@ -59,6 +59,7 @@ class HomeFragment : Fragment() {
                 object : OurObject.OurItemClickListener {
                     override fun ourItemClick(position: Int) {
                         showPets(categoryNames[position])
+                        petsAdapter.category = categoryNames[position]
                     }
                 })
 
@@ -69,7 +70,8 @@ class HomeFragment : Fragment() {
             }
 
             pets = backendReplica.dogs()
-            petsAdapter = PetsAdapter(pets, requireContext())
+            petsAdapter = PetsAdapter(pets, requireContext(), requireActivity())
+            petsAdapter.category = "dogs"
             binding.petsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.petsRecyclerView.adapter = petsAdapter
 

@@ -35,7 +35,7 @@
                 tools:text="Havanese Dog" />
 
             <TextView
-                android:id="@+id/bio"
+                android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="2.5dp"
@@ -53,10 +53,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingVertical="5dp"
+                android:progressTint="@color/filled_star_light"
                 app:layout_constraintBottom_toTopOf="@+id/price"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@id/guideline_start"
-                app:layout_constraintTop_toBottomOf="@+id/bio"
+                app:layout_constraintTop_toBottomOf="@+id/title"
                 tools:rating="3.5" />
 
             <TextView
