@@ -68,11 +68,24 @@ class AboutPetFragment : Fragment() {
             bio.text = pet.bio
             price.text = "$${pet.price.toString()}"
             ratingBar.rating = pet.rating!!.toFloat()
+            ageValue.text = "${pet.info?.age} yrs"
+            breedValue.text = pet.info?.breed.toString()
+            weightValue.text = "${pet.info?.weight.toString()} kg"
+            sexValue.text = pet.info?.gender.toString()
+
+
+            if (id == 0 && category == "dogs") {
+                Glide.with(requireContext()).load(OurObject.imgurJPGLink(pet.owner?.profilePic))
+                    .into(petOwnerProfilePicture)
+            } else {
+                Glide.with(requireContext()).load(pet.owner?.profilePic)
+                    .into(petOwnerProfilePicture)
+            }
 
 
 
-            Glide.with(requireContext()).load(OurObject.imgurJPGLink(pet.owner?.profilePic))
-                .into(petOwnerProfilePicture)
+
+
             petOwnerName.text = pet.owner?.name
             petOwnerTitle.text = pet.owner?.title
             petOwnerDistance.text = "${pet.owner?.address} km"
