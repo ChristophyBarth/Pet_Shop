@@ -5,6 +5,8 @@ import android.net.Uri
 object OurObject {
     var imageUri: Uri? = null
 
+    const val PET_ID = "petId"
+
     interface OurItemClickListener {
         fun ourItemClick(position: Int)
     }

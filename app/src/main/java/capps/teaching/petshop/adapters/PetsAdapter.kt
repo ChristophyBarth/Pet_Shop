@@ -73,7 +73,7 @@ class PetsAdapter(
 
             binding.root.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putInt("petId", pet.id!!)
+                bundle.putInt(OurObject.PET_ID, pet.id!!)
                 bundle.putString("category", category)
 
                 val newFragment = AboutPetFragment()

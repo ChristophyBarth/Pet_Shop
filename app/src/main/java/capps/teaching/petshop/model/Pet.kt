@@ -12,33 +12,11 @@ class Pet {
     var owner: Owner? = null
     var info: Info? = null
 
-
     constructor()
 
-
     /**
-     * If you do not have the themeColor
+     * If you do not have an Info
      */
-    constructor(
-        id: Int?,
-        name: String?,
-        title: String?,
-        bio: String?,
-        rating: Double?,
-        price: Double?,
-        photoUrl: String?,
-        owner: Owner?
-    ) {
-        this.id = id
-        this.name = name
-        this.bio = bio
-        this.title = title
-        this.rating = rating
-        this.price = price
-        this.photoUrl = photoUrl
-        this.owner = owner
-    }
-
     constructor(
         id: Int?,
         name: String?,

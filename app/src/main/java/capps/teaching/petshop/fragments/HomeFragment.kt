@@ -1,6 +1,7 @@
 package capps.teaching.petshop.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,13 @@ import capps.teaching.petshop.model.Pet
 import kotlin.math.max
 
 class HomeFragment : Fragment() {
+
+    companion object {
+        const val TAG = "HomeFragment"
+    }
+
+    val HAHA = "haha"
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -39,8 +47,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pet = Pet()
-        val ownerName = pet.owner?.name
+
+        Log.d(TAG, "onViewCreated: rni4jn4ut")
 
         binding.apply {
             //"Squirrels", "Lizards", "Rabbits"
@@ -59,7 +67,7 @@ class HomeFragment : Fragment() {
                 object : OurObject.OurItemClickListener {
                     override fun ourItemClick(position: Int) {
                         showPets(categoryNames[position])
-                        petsAdapter.category = categoryNames[position]
+                        petsAdapter.category = categoryNames[position].lowercase()
                     }
                 })
 

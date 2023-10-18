@@ -1,6 +1,7 @@
 package capps.teaching.petshop.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import com.bumptech.glide.Glide
 import kotlin.properties.Delegates
 
 class AboutPetFragment : Fragment() {
-    private lateinit var pet: Pet
+    private var pet: Pet? = null
     private var petId by Delegates.notNull<Int>()
     private var _binding: FragmentAboutPetBinding? = null
     private val binding get() = _binding!!
@@ -35,10 +36,12 @@ class AboutPetFragment : Fragment() {
         petId = extras.getInt("petId")
         category = extras.getString("category")!!
 
+        Log.wtf("TAGGG", petId.toString())
+        Log.wtf("TAGGG", category)
 
         when (category) {
             "dogs" -> {
-                pet = BackendReplica().dogs().first {
+                pet = BackendReplica().dogs().find {
                     it.id == petId
                 }
             }
@@ -61,24 +64,24 @@ class AboutPetFragment : Fragment() {
         }
 
         binding.apply {
-            Glide.with(requireContext()).load(OurObject.imgurJPGLink(pet.photoUrl))
+            Glide.with(requireContext()).load(OurObject.imgurJPGLink(pet?.photoUrl))
                 .into(profilePicture)
-            name.text = pet.name
-            title.text = pet.title
-            bio.text = pet.bio
-            price.text = "$${pet.price.toString()}"
-            ratingBar.rating = pet.rating!!.toFloat()
-            ageValue.text = "${pet.info?.age} yrs"
-            breedValue.text = pet.info?.breed.toString()
-            weightValue.text = "${pet.info?.weight.toString()} kg"
-            sexValue.text = pet.info?.gender.toString()
+            name.text = pet?.name
+            title.text = pet?.title
+            bio.text = pet?.bio
+            price.text = "$${pet?.price.toString()}"
+            ratingBar.rating = pet?.rating!!.toFloat()
+            ageValue.text = "${pet?.info?.age} yrs"
+            breedValue.text = pet?.info?.breed.toString()
+            weightValue.text = "${pet?.info?.weight.toString()} kg"
+            sexValue.text = pet?.info?.gender.toString()
 
 
             if (id == 0 && category == "dogs") {
-                Glide.with(requireContext()).load(OurObject.imgurJPGLink(pet.owner?.profilePic))
+                Glide.with(requireContext()).load(OurObject.imgurJPGLink(pet?.owner?.profilePic))
                     .into(petOwnerProfilePicture)
             } else {
-                Glide.with(requireContext()).load(pet.owner?.profilePic)
+                Glide.with(requireContext()).load(pet?.owner?.profilePic)
                     .into(petOwnerProfilePicture)
             }
 
@@ -86,9 +89,9 @@ class AboutPetFragment : Fragment() {
 
 
 
-            petOwnerName.text = pet.owner?.name
-            petOwnerTitle.text = pet.owner?.title
-            petOwnerDistance.text = "${pet.owner?.address} km"
+            petOwnerName.text = pet?.owner?.name
+            petOwnerTitle.text = pet?.owner?.title
+            petOwnerDistance.text = "${pet?.owner?.address} km"
         }
 
     }
