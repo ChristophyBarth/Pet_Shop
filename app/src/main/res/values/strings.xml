@@ -1,5 +1,20 @@
 <resources>
-    <string name="app_name">Pet Shop</string>
+    <string name="app_name" translatable="false">Pet Shop</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">fragmento en blanco</string>
+    <string name="gender">Gender</string>
+    <string name="breed">Breed</string>
+    <string name="weight">Weight</string>
+    <string name="adopt">Adopt</string>
+    <string name="more">More</string>
+    <string name="user_profile">User Profile</string>
+    <string name="category">%s</string>
+    <string name="search_for_a_pet">Search for a pet</string>
+    <string name="input_category">Input a category</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="dogs">Dogs</string>
+    <string name="cats">Cats</string>
+    <string name="birds">Birds</string>
+    <string name="snakes">Snakes</string>
+    <string name="feature_not_implemented">This feature has not been implemented yet.</string>
 </resources>

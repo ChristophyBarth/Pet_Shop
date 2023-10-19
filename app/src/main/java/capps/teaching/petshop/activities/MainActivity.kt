@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_chat -> {
                     Toast.makeText(
                         this,
-                        "This feature has not been implemented yet.",
+                        getString(R.string.feature_not_implemented),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_notification -> {
                     Toast.makeText(
                         this,
-                        "This feature has not been implemented yet.",
+                        getString(R.string.feature_not_implemented),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeFragment(id : Fragment){
+    private fun changeFragment(id: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentContainer, id)
         fragmentTransaction.addToBackStack(null)

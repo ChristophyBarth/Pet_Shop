@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +24,6 @@ class HomeFragment : Fragment() {
         const val TAG = "HomeFragment"
     }
 
-    val HAHA = "haha"
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -51,9 +51,12 @@ class HomeFragment : Fragment() {
         Log.d(TAG, "onViewCreated: rni4jn4ut")
 
         binding.apply {
+            val slideLeft = AnimationUtils.loadAnimation(requireContext(), R.anim.zoom_in)
+            settings.startAnimation(slideLeft)
             //"Squirrels", "Lizards", "Rabbits"
             categoryNames = arrayListOf(
-                "Dogs", "Cats", "Birds", "Snakes"
+                getString(R.string.dogs), getString(R.string.cats),
+                getString(R.string.birds), getString(R.string.snakes)
             )
 
             categoryIcons = arrayListOf(
