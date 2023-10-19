@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_blank_fragment">fragmento en blanco</string>
+    <string name="gender">Género</string>
+    <string name="breed">Criar</string>
+    <string name="weight">Peso</string>
+    <string name="adopt">Adoptar</string>
+    <string name="more">más</string>
+    <string name="user_profile">perfil del usuario</string>
+    <string name="category">%s</string>
+    <string name="input_category">Introduzca una categoría</string>
+    <string name="search_for_a_pet">Buscar una mascota</string>
+    <string name="dark_mode">Modo Oscuro</string>
+    <string name="dogs">perros</string>
+    <string name="cats">cats</string>
+    <string name="birds">birds</string>
+    <string name="snakes">snakes</string>
+    <string name="feature_not_implemented">Esta característica aún no se ha implementado</string>
+</resources>
