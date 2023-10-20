@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +48,8 @@ class PetsAdapter(
 
     inner class PetsViewHolder(private val binding: PetItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        private val slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down)
         fun bind(pet: Pet) {
             binding.apply {
                 name.text = pet.name
@@ -68,6 +72,8 @@ class PetsAdapter(
                 }
 
                 Glide.with(context).load(imgurJPGLink(pet.photoUrl!!)).into(photo)
+
+                root.startAnimation(slideDown)
             }
 
 

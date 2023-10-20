@@ -1,5 +1,8 @@
 package capps.teaching.petshop.fragments
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -48,90 +51,115 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d(TAG, "onViewCreated: rni4jn4ut")
-
         binding.apply {
-            val slideLeft = AnimationUtils.loadAnimation(requireContext(), R.anim.zoom_in)
-            settings.startAnimation(slideLeft)
-            //"Squirrels", "Lizards", "Rabbits"
-            categoryNames = arrayListOf(
-                getString(R.string.dogs), getString(R.string.cats),
-                getString(R.string.birds), getString(R.string.snakes)
-            )
+            val slideUp = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_up)
+            val slideDown = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_down)
 
-            categoryIcons = arrayListOf(
-                R.drawable.ic_dog, R.drawable.ic_cat, R.drawable.ic_bird, R.drawable.ic_snake
-            )
+            ObjectAnimator.ofFloat(profilePicture, "translationX", 0f, 200f).apply {
+                duration = 3000
+//                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+                addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator) {
+                        Log.d(TAG, "onAnimationStart: ")
+                    }
 
-            backendReplica = BackendReplica()
+                    override fun onAnimationEnd(animation: Animator) {
+                        Log.d(TAG, "onAnimationEnd: ")
+                    }
 
-            categoryAdapter = CategoryAdapter(requireContext(), categoryNames,
-                categoryIcons,
-                object : OurObject.OurItemClickListener {
-                    override fun ourItemClick(position: Int) {
-                        showPets(categoryNames[position])
-                        petsAdapter.category = categoryNames[position].lowercase()
+                    override fun onAnimationCancel(animation: Animator) {
+                        Log.d(TAG, "onAnimationCancel:")
+                    }
+
+                    override fun onAnimationRepeat(animation: Animator) {
+                        Log.d(TAG, "onAnimationRepeat: ")
                     }
                 })
-
-            categoriesRecyclerView.apply {
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                adapter = categoryAdapter
+                start()
             }
 
-            pets = backendReplica.dogs()
-            petsAdapter = PetsAdapter(pets, requireContext(), requireActivity())
-            petsAdapter.category = "dogs"
-            binding.petsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-            binding.petsRecyclerView.adapter = petsAdapter
+            binding.apply {
+                //"Squirrels", "Lizards", "Rabbits"
+                categoryNames = arrayListOf(
+                    getString(R.string.dogs), getString(R.string.cats),
+                    getString(R.string.birds), getString(R.string.snakes)
+                )
 
-            searchCategory.isSubmitButtonEnabled = true
-            searchCategory.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    if (!query.isNullOrBlank()) {
-                        searchForPets(query)
+                categoryIcons = arrayListOf(
+                    R.drawable.ic_dog, R.drawable.ic_cat, R.drawable.ic_bird, R.drawable.ic_snake
+                )
+
+                backendReplica = BackendReplica()
+
+                categoryAdapter = CategoryAdapter(requireContext(), categoryNames,
+                    categoryIcons,
+                    object : OurObject.OurItemClickListener {
+                        override fun ourItemClick(position: Int) {
+                            showPets(categoryNames[position])
+                            petsAdapter.category = categoryNames[position].lowercase()
+                        }
+                    })
+
+                categoriesRecyclerView.apply {
+                    layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    adapter = categoryAdapter
+                }
+
+                pets = backendReplica.dogs()
+                petsAdapter = PetsAdapter(pets, requireContext(), requireActivity())
+                petsAdapter.category = "dogs"
+                binding.petsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                binding.petsRecyclerView.adapter = petsAdapter
+
+                searchCategory.isSubmitButtonEnabled = true
+                searchCategory.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        if (!query.isNullOrBlank()) {
+                            searchForPets(query)
+                        }
+                        return true
                     }
-                    return true
-                }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    return true
-                }
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        return true
+                    }
 
-            })
+                })
+            }
         }
     }
 
-    private fun searchForPets(query: String) {
-        val filteredList = backendReplica.dogs().filter { pet ->
-            pet.name!!.startsWith(query, true)
+        private fun searchForPets(query: String) {
+            val filteredList = backendReplica.dogs().filter { pet ->
+                pet.name!!.startsWith(query, true)
+            }
+
+            val previousListSize = pets.size
+            pets.clear()
+            pets.addAll(filteredList)
+            petsAdapter.notifyItemRangeChanged(0, max(previousListSize, filteredList.size))
         }
 
-        val previousListSize = pets.size
-        pets.clear()
-        pets.addAll(filteredList)
-        petsAdapter.notifyItemRangeChanged(0, max(previousListSize, filteredList.size))
-    }
+        private fun showPets(category: String) {
+            when (category) {
+                "Dogs" -> pets.apply {
+                    clear()
+                    addAll(backendReplica.dogs())
+                }
 
-    private fun showPets(category: String) {
-        when (category) {
-            "Dogs" -> pets.apply {
-                clear()
-                addAll(backendReplica.dogs())
-            }
+                "Cats" -> pets.apply {
+                    clear()
+                    addAll(backendReplica.cats())
+                }
 
-            "Cats" -> pets.apply {
-                clear()
-                addAll(backendReplica.cats())
-            }
-
-            /*"Snakes" -> pets.apply {
+                /*"Snakes" -> pets.apply {
                 clear()
                 addAll(arrayListOf("Slither", "Venom", "Cobra", "Medusa", "Python"))
             }*/
 
-            /*"Birds" -> pets.apply {
+                /*"Birds" -> pets.apply {
                 clear()
                 addAll(arrayListOf("Tweety", "Sky", "Feather", "Merlin"))
             }
@@ -161,15 +189,15 @@ class HomeFragment : Fragment() {
                 )
             }*/
 
-            else -> throw IllegalArgumentException("Unknown Pet Category")
+                else -> throw IllegalArgumentException("Unknown Pet Category")
+            }
+
+            petsAdapter.notifyDataSetChanged()
         }
 
-        petsAdapter.notifyDataSetChanged()
-    }
+        override fun onDestroy() {
+            super.onDestroy()
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        _binding = null
-    }
+            _binding = null
+        }
 }
