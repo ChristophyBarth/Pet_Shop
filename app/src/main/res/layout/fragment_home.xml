@@ -28,7 +28,7 @@
             android:src="@drawable/ic_more" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/settings"
+            android:id="@+id/profile_picture"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
