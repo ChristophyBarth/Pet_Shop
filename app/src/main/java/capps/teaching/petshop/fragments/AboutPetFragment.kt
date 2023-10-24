@@ -1,5 +1,9 @@
 package capps.teaching.petshop.fragments
 
+import NotificationService
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -38,6 +42,23 @@ class AboutPetFragment : Fragment() {
 
         Log.wtf("TAGGG", petId.toString())
         Log.wtf("TAGGG", category)
+        Log.d(OurObject.TAG, "onViewCreated: ")
+
+
+        binding.adoptBtn.setOnClickListener {
+            fun createNotificationChannel() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    val adoptionChannel = NotificationChannel(
+                        NotificationService.ORDER_CHANNEL_ID,
+                        "Adoption",
+                        NotificationManager.IMPORTANCE_DEFAULT
+                    )
+                    adoptionChannel.description = "Adoptions"
+                    val notificationManager = requireContext().getSystemService()
+                }
+
+            }
+        }
 
         when (category) {
             "dogs" -> {
@@ -52,15 +73,16 @@ class AboutPetFragment : Fragment() {
                 }
             }
 
-            "snakes" -> {
-                pet = BackendReplica().snakes().first {
+            "birds" -> {
+                pet = BackendReplica().birds().first {
                     it.id == petId
                 }
-            }/*"birds" ->{
-                pet = BackendReplica().dogs().first {
-                     it.id == petId
-                }
-            }*/
+            }
+            /*"birds" ->{
+                    pet = BackendReplica().dogs().first {
+                         it.id == petId
+                    }
+                }*/
         }
 
         binding.apply {

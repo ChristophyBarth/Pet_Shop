@@ -6,6 +6,7 @@ object OurObject {
     var imageUri: Uri? = null
 
     const val PET_ID = "petId"
+    const val TAG = "Tag"
 
     interface OurItemClickListener {
         fun ourItemClick(position: Int)
@@ -19,7 +20,7 @@ object OurObject {
             stringBuilder.append(".jpg")
 
             stringBuilder.toString()
-        } else{
+        } else {
             null
         }
     }
