@@ -3,6 +3,7 @@ package capps.teaching.petshop.fragments
 import NotificationService
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import capps.teaching.petshop.data.BackendReplica
 import capps.teaching.petshop.databinding.FragmentAboutPetBinding
 import capps.teaching.petshop.model.Pet
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import kotlin.properties.Delegates
 
 class AboutPetFragment : Fragment() {
@@ -40,6 +42,10 @@ class AboutPetFragment : Fragment() {
         petId = extras.getInt("petId")
         category = extras.getString("category")!!
 
+        val jsonString = extras.getString("pet")
+        val gson = Gson()
+        pet = gson.fromJson(jsonString, Pet::class.java)
+
         Log.wtf("TAGGG", petId.toString())
         Log.wtf("TAGGG", category)
         Log.d(OurObject.TAG, "onViewCreated: ")
@@ -54,13 +60,13 @@ class AboutPetFragment : Fragment() {
                         NotificationManager.IMPORTANCE_DEFAULT
                     )
                     adoptionChannel.description = "Adoptions"
-                    val notificationManager = requireContext().getSystemService()
+                    val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE)
                 }
 
             }
         }
 
-        when (category) {
+        /*when (category) {
             "dogs" -> {
                 pet = BackendReplica().dogs().find {
                     it.id == petId
@@ -78,12 +84,12 @@ class AboutPetFragment : Fragment() {
                     it.id == petId
                 }
             }
-            /*"birds" ->{
+            *//*"birds" ->{
                     pet = BackendReplica().dogs().first {
                          it.id == petId
                     }
-                }*/
-        }
+                }*//*
+        }*/
 
         binding.apply {
             Glide.with(requireContext()).load(OurObject.imgurJPGLink(pet?.photoUrl))
@@ -92,7 +98,10 @@ class AboutPetFragment : Fragment() {
             title.text = pet?.title
             bio.text = pet?.bio
             price.text = "$${pet?.price.toString()}"
-            ratingBar.rating = pet?.rating!!.toFloat()
+
+            if (pet?.rating != null) {
+                ratingBar.rating = pet!!.rating!!.toFloat()
+            }
             ageValue.text = "${pet?.info?.age} yrs"
             breedValue.text = pet?.info?.breed.toString()
             weightValue.text = "${pet?.info?.weight.toString()} kg"
