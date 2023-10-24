@@ -3,6 +3,7 @@ package capps.teaching.petshop.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import capps.teaching.petshop.OurObject
@@ -16,12 +17,19 @@ class CategoryAdapter(
     private val onItemClickListener: OurObject.OurItemClickListener,
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
+    private val animation =
+        AnimationUtils.loadAnimation(context, R.anim.slide_up)
+
+
     private var selectedItemPosition = 0
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = CategoryItemBinding.inflate(layoutInflater, parent,false)
+        val binding = CategoryItemBinding.inflate(layoutInflater, parent, false)
+
         return CategoryViewHolder(binding)
+
     }
 
     override fun getItemCount(): Int {
@@ -29,8 +37,11 @@ class CategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+
         holder.bind(categoryNameList[position], categoryIconList[position], onItemClickListener)
+
     }
+
 
     inner class CategoryViewHolder(private val binding: CategoryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -42,7 +53,12 @@ class CategoryAdapter(
             if (adapterPosition == selectedItemPosition) {
                 binding.linearLayout.setBackgroundResource(R.drawable.selected_category_background)
             } else {
-                binding.linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.ash_white))
+                binding.linearLayout.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.ash_white
+                    )
+                )
             }
 
             binding.category.text = category
@@ -50,13 +66,22 @@ class CategoryAdapter(
 
             binding.root.setOnClickListener {
                 onItemClickListener.ourItemClick(adapterPosition)
-
                 notifyItemChanged(selectedItemPosition)
-
                 selectedItemPosition = adapterPosition
                 notifyItemChanged(adapterPosition)
             }
         }
+    }
+
+    override fun onViewAttachedToWindow(holder: CategoryViewHolder) {
+        super.onViewAttachedToWindow(holder)
+
+        holder.itemView.startAnimation(animation)
+    }
+
+    override fun onViewDetachedFromWindow(holder: CategoryViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.itemView.clearAnimation()
     }
 
 }

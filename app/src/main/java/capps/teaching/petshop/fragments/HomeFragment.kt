@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
 
                 pets = backendReplica.dogs()
                 petsAdapter = PetsAdapter(pets, requireContext(), requireActivity())
-                petsAdapter.category = "dogs"
+                petsAdapter.category = getString(R.string.dogs).lowercase()
                 binding.petsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                 binding.petsRecyclerView.adapter = petsAdapter
 
@@ -131,73 +131,78 @@ class HomeFragment : Fragment() {
         }
     }
 
-        private fun searchForPets(query: String) {
-            val filteredList = backendReplica.dogs().filter { pet ->
-                pet.name!!.startsWith(query, true)
-            }
-
-            val previousListSize = pets.size
-            pets.clear()
-            pets.addAll(filteredList)
-            petsAdapter.notifyItemRangeChanged(0, max(previousListSize, filteredList.size))
+    private fun searchForPets(query: String) {
+        val filteredList = backendReplica.dogs().filter { pet ->
+            pet.name!!.startsWith(query, true)
         }
 
-        private fun showPets(category: String) {
-            when (category) {
-                "Dogs" -> pets.apply {
-                    clear()
-                    addAll(backendReplica.dogs())
-                }
+        val previousListSize = pets.size
+        pets.clear()
+        pets.addAll(filteredList)
+        petsAdapter.notifyItemRangeChanged(0, max(previousListSize, filteredList.size))
+    }
 
-                "Cats" -> pets.apply {
-                    clear()
-                    addAll(backendReplica.cats())
-                }
-
-                /*"Snakes" -> pets.apply {
+    private fun showPets(category: String) {
+        when (category) {
+            getString(R.string.dogs) -> pets.apply {
                 clear()
-                addAll(arrayListOf("Slither", "Venom", "Cobra", "Medusa", "Python"))
+                addAll(backendReplica.dogs())
+            }
+
+            "Cats" -> pets.apply {
+                clear()
+                addAll(backendReplica.cats())
+            }
+
+            "Birds" -> pets.apply {
+                clear()
+                addAll(backendReplica.birds())
+            }
+
+            /*"Snakes" -> pets.apply {
+            clear()
+            addAll(arrayListOf("Slither", "Venom", "Cobra", "Medusa", "Python"))
             }*/
 
-                /*"Birds" -> pets.apply {
-                clear()
-                addAll(arrayListOf("Tweety", "Sky", "Feather", "Merlin"))
+            /*"Birds" -> pets.apply {
+            clear()
+            addAll(arrayListOf("Tweety", "Sky", "Feather", "Merlin"))
             }
 
             "Squirrels" -> pets.apply {
-                clear()
-                addAll(arrayListOf("Nutty", "Squeaky", "Hazel", "Acorn", "Pippin"))
+            clear()
+            addAll(arrayListOf("Nutty", "Squeaky", "Hazel", "Acorn", "Pippin"))
             }
 
             "Lizards" -> pets.apply {
-                clear()
-                addAll(arrayListOf("Spike", "Rex", "Lizzie", "Draco", "Ziggy", "Gex"))
+            clear()
+            addAll(arrayListOf("Spike", "Rex", "Lizzie", "Draco", "Ziggy", "Gex"))
             }
 
             "Rabbits" -> pets.apply {
-                clear()
-                addAll(
-                    arrayListOf(
-                        "Floppy",
-                        "Thumper",
-                        "Cottontail",
-                        "Binky",
-                        "Snowball",
-                        "Hopscotch",
-                        "Daisy"
-                    )
+            clear()
+            addAll(
+                arrayListOf(
+                    "Floppy",
+                    "Thumper",
+                    "Cottontail",
+                    "Binky",
+                    "Snowball",
+                    "Hopscotch",
+                    "Daisy"
                 )
+            )
             }*/
 
-                else -> throw IllegalArgumentException("Unknown Pet Category")
-            }
-
-            petsAdapter.notifyDataSetChanged()
+            else -> throw IllegalArgumentException("Unknown Pet Category")
         }
 
-        override fun onDestroy() {
-            super.onDestroy()
+        petsAdapter.notifyDataSetChanged()
+    }
 
-            _binding = null
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
+    }
 }

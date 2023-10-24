@@ -1,14 +1,11 @@
 package capps.teaching.petshop.adapters
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import capps.teaching.petshop.OurObject
@@ -26,8 +23,9 @@ class PetsAdapter(
     private val activity: FragmentActivity
 ) :
     RecyclerView.Adapter<PetsAdapter.PetsViewHolder>() {
-
-    lateinit var category : String
+    private val slideLeft = AnimationUtils.loadAnimation(context, R.anim.slide_left)
+    private val fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+    lateinit var category: String
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetsViewHolder {
@@ -73,7 +71,7 @@ class PetsAdapter(
 
                 Glide.with(context).load(imgurJPGLink(pet.photoUrl!!)).into(photo)
 
-                root.startAnimation(slideDown)
+                root.startAnimation(fadeOut)
             }
 
 
@@ -83,7 +81,7 @@ class PetsAdapter(
                 bundle.putString("category", category)
 
                 val newFragment = AboutPetFragment()
-                    newFragment.arguments = bundle
+                newFragment.arguments = bundle
 
                 activity.supportFragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainer, newFragment).addToBackStack(null).commit()
