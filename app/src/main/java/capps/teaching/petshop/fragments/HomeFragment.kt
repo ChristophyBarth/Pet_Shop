@@ -1,10 +1,6 @@
 package capps.teaching.petshop.fragments
 
-import android.animation.Animator
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,10 +51,10 @@ class HomeFragment : Fragment() {
             val slideUp = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_up)
             val slideDown = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_down)
 
-            ObjectAnimator.ofFloat(profilePicture, "translationX", 0f, 200f).apply {
+            /*ObjectAnimator.ofFloat(profilePicture, "translationX", 0f, 200f).apply {
                 duration = 3000
 //                repeatCount = ValueAnimator.INFINITE
-                repeatMode = ValueAnimator.REVERSE
+//                repeatMode = ValueAnimator.REVERSE
                 addListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(animation: Animator) {
                         Log.d(TAG, "onAnimationStart: ")
@@ -77,13 +73,15 @@ class HomeFragment : Fragment() {
                     }
                 })
                 start()
-            }
+            }*/
 
             binding.apply {
                 //"Squirrels", "Lizards", "Rabbits"
                 categoryNames = arrayListOf(
-                    getString(R.string.dogs), getString(R.string.cats),
-                    getString(R.string.birds), getString(R.string.snakes)
+                    getString(R.string.dogs),
+                    getString(R.string.cats),
+                    getString(R.string.birds),
+                    getString(R.string.snakes)
                 )
 
                 categoryIcons = arrayListOf(
@@ -92,7 +90,8 @@ class HomeFragment : Fragment() {
 
                 backendReplica = BackendReplica()
 
-                categoryAdapter = CategoryAdapter(requireContext(), categoryNames,
+                categoryAdapter = CategoryAdapter(requireContext(),
+                    categoryNames,
                     categoryIcons,
                     object : OurObject.OurItemClickListener {
                         override fun ourItemClick(position: Int) {
@@ -127,6 +126,13 @@ class HomeFragment : Fragment() {
                     }
 
                 })
+
+                more.setOnClickListener {
+                    val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragmentContainer, MoreImagesFragment())
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
             }
         }
     }

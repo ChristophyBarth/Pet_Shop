@@ -3,12 +3,14 @@ package capps.teaching.petshop.adapters
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import capps.teaching.petshop.OurObject
+import capps.teaching.petshop.OurObject.TAG
 import capps.teaching.petshop.OurObject.imgurJPGLink
 import capps.teaching.petshop.OurObject.isColorDark
 import capps.teaching.petshop.R
@@ -16,6 +18,7 @@ import capps.teaching.petshop.databinding.PetItemBinding
 import capps.teaching.petshop.fragments.AboutPetFragment
 import capps.teaching.petshop.model.Pet
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 
 class PetsAdapter(
     private val petList: ArrayList<Pet>,
@@ -26,6 +29,10 @@ class PetsAdapter(
     private val slideLeft = AnimationUtils.loadAnimation(context, R.anim.slide_left)
     private val fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_in)
     lateinit var category: String
+
+    companion object{
+        const val TAG = "PetsAdapter"
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetsViewHolder {
@@ -79,6 +86,13 @@ class PetsAdapter(
                 val bundle = Bundle()
                 bundle.putInt(OurObject.PET_ID, pet.id!!)
                 bundle.putString("category", category)
+
+                val gson = Gson()
+                val jsonString = gson.toJson(pet)
+
+                Log.d(TAG, jsonString)
+
+                bundle.putString("pet", jsonString)
 
                 val newFragment = AboutPetFragment()
                 newFragment.arguments = bundle
